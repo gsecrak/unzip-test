@@ -1,0 +1,19 @@
+name: Unzip File
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "*.zip"
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Unzip all ZIP files
+        run: |
+          for f in *.zip; do
+            unzip "$f" -d "${f%.*}"
+          done
